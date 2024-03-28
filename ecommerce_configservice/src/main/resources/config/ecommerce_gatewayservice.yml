@@ -1,0 +1,58 @@
+server:
+  port: 8060
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8061/eureka/
+  instance: 
+    preferIpAddress: true
+      
+
+logging:
+  pattern: 
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+              
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: ecomm_service
+        uri: lb://ecomm_service
+        predicates:
+        - Path=/auth/**
+        
+      - id: login-service
+        uri: lb://login-service
+        predicates:
+        - Path=/api/auth/**
+
+      - id: shopservice
+        uri: lb://shopservice
+        predicates:
+        - Path=/shopservice/**
+        filters:
+        - RewritePath=/shopservice/(?<path>.*), /$\{path}
+      - id: openapi
+        uri: http://localhost:${server.port}
+        predicates:
+           - Path=/v3/api-docs/**
+        filters:
+           - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+      
+   
+        
+springdoc:
+  swagger-ui:
+    urls:
+      - name: shopservice
+        url: /v3/api-docs/shopservice
+     
+      - name : login-service
+        url : /v3/api-docs/api/auth
+      
+  cache:
+    disabled: true
