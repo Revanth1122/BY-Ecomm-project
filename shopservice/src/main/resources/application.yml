@@ -1,0 +1,32 @@
+#spring.datasource.url=jdbc:postgresql://localhost:5432/ecommerce
+#spring.datasource.username=postgres
+#spring.datasource.password=postgres
+#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.show-sql=true
+#management.security.enabled=true
+#management.endpoints.web.exposure.include=*
+
+spring:
+  application:
+    name: shopservice
+  config:
+    import: "optional:configserver:http://localhost:8088"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+management:
+  security:
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
