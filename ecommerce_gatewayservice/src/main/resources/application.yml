@@ -1,0 +1,10 @@
+
+spring:
+  application:
+    name: ecommerce_gatewayservice
+  config:
+    import: "optional:configserver:http://localhost:8088"
+    
+    
+
+
