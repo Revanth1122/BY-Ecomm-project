@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: login-service
+  config:
+    import: "optional:configserver:http://localhost:8088"
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/bysecdb
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    
+management:
+  security:
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+toyandbooklibapp:
+    jwtSecret: BLUEYONDERBELLANDURBENGALURUBLUEYONDERBELLANDURBENGALURUBLUEYONDERBELLANDURBENGALURUBENGALURUBLUEYONDERBELLANDURBENGALURUBENGALURUBLUEYONDERBELLANDURBENGALURU
+    jwtExpirationMs: 86400000
